@@ -31,7 +31,7 @@ public class RestaurantConfiguration extends Configuration {
 	private String dbName = "health";
 	
 	@JsonProperty("mongoClient")
-	public MongoClientFactory getMongoClient() {
+	public MongoClientFactory getMongoClientFactory() {
 		return mongoClient;
 	}
 

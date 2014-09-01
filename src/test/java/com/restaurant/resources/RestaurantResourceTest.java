@@ -37,7 +37,7 @@ public class RestaurantResourceTest {
 		List<Restaurant> restaurants = ImmutableList.of(new Restaurant());
 		Mockito.when(dao.queryForGrades(name.orNull(), zipcode.orNull(), rating.orNull())).thenReturn(restaurants);
 		
-		List<Restaurant> resultset = resource.query(name, zipcode, rating);
+		List<Restaurant> resultset = resource.searchRestaurantHealthData(name, zipcode, rating);
 		
 		assertThat(resultset).labeled("query resultset").isEqualTo(restaurants);
 	}
@@ -51,6 +51,11 @@ public class RestaurantResourceTest {
 		List<Restaurant> restaurants = ImmutableList.of();
 		Mockito.when(dao.queryForGrades(name.orNull(), zipcode.orNull(), rating.orNull())).thenReturn(restaurants);
 		
-		resource.query(name, zipcode, rating);		
+		resource.searchRestaurantHealthData(name, zipcode, rating);		
+	}
+	
+	@Test(expected = InvalidRequestException.class)
+	public void missingUniqueIdentifierSingleRestaurantQuery() throws InvalidRequestException {
+		resource.getRestaurant(null);
 	}
 }

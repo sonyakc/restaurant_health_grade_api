@@ -1,16 +1,16 @@
 package com.restaurant.dao;
 
-import org.joda.time.LocalDateTime;
-import org.junit.Test;
+import static com.google.common.truth.Truth.assertThat;
 
-import static com.google.common.truth.Truth.*;
+import org.joda.time.DateTime;
+import org.junit.Test;
 
 public class DateParserTest {
 
 	@Test
 	public void successfullyParseDatebaseTimestampUsingParser() {
-		LocalDateTime localDateTime = DateParser
+		DateTime dateTime = DateParser
 				.parseTimestamp("2014-02-20 00:00:00");
-		assertThat(localDateTime).labeled("parsed localDateTime").isEqualTo(new LocalDateTime(2014, 02, 20, 00, 00, 00, 00));
+		assertThat(dateTime).labeled("parsed dateTime").isEqualTo(new DateTime(2014, 02, 20, 00, 00, 00, 00));
 	}
 }

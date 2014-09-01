@@ -2,8 +2,9 @@ package com.restaurant.api;
 
 import io.dropwizard.jackson.JsonSnakeCase;
 
-import org.joda.time.LocalDateTime;
+import org.joda.time.DateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -23,9 +24,10 @@ public final class Restaurant {
 	private Integer boroCode;
 	private Borough boroName;
 	private Integer cuisineCode;
-	private LocalDateTime gradeDate;
+	private DateTime gradeDate;
 	private String phoneNumber;
 	
+	@JsonProperty
 	public String getId() {
 		return id;
 	}
@@ -79,7 +81,7 @@ public final class Restaurant {
 		this.zipCode = zipcode;
 	}
 
-	@JsonProperty
+	@JsonIgnore
 	public Integer getBoroCode() {
 		return boroCode;
 	}
@@ -107,11 +109,11 @@ public final class Restaurant {
 	}
 
 	@JsonProperty
-	public LocalDateTime getGradeDate() {
+	public DateTime getGradeDate() {
 		return gradeDate;
 	}
 
-	public void setGradeDate(LocalDateTime gradedate) {
+	public void setGradeDate(DateTime gradedate) {
 		this.gradeDate = gradedate;
 	}
 

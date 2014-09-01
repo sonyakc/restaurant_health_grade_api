@@ -3,7 +3,6 @@ package com.restaurant;
 import io.dropwizard.jersey.setup.JerseyEnvironment;
 import io.dropwizard.lifecycle.setup.LifecycleEnvironment;
 import io.dropwizard.setup.Environment;
-import io.federecio.dropwizard.swagger.SwaggerResource;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,11 +11,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import com.codahale.metrics.health.HealthCheckRegistry;
-import com.restaurant.health.TemplateHealthCheck;
-import com.restaurant.resources.RestaurantResource;
-import com.wordnik.swagger.jaxrs.listing.ApiDeclarationProvider;
-import com.wordnik.swagger.jaxrs.listing.ApiListingResourceJSON;
-import com.wordnik.swagger.jaxrs.listing.ResourceListingProvider;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class RestaurantApplicationTest {
 	@Mock
@@ -27,7 +22,8 @@ public class RestaurantApplicationTest {
 	private final LifecycleEnvironment lifecycleEnvironment = new LifecycleEnvironment();
 	private final RestaurantApplication application = new RestaurantApplication();
 	private final RestaurantConfiguration config = new RestaurantConfiguration();
-	private MongoClientFactory factory = new MongoClientFactory();
+	private final MongoClientFactory factory = new MongoClientFactory();
+	private final ObjectMapper objectMapper = new ObjectMapper();
 
 	@Before
 	public void setup() throws Exception {
@@ -38,11 +34,12 @@ public class RestaurantApplicationTest {
 		Mockito.when(environment.healthChecks())
 				.thenReturn(healthCheckRegister);
 		Mockito.when(environment.lifecycle()).thenReturn(lifecycleEnvironment);
+		Mockito.when(environment.getObjectMapper()).thenReturn(objectMapper);
 	}
 
 	@Test
 	public void runTheRestaurantApplication() throws Exception {
 		application.run(config, environment);
-		Mockito.verify(environment.jersey(), Mockito.times(2)).register(Mockito.any(RestaurantResource.class));
+		Mockito.verify(environment.jersey(), Mockito.times(3)).register(Mockito.any());
 	}
 }

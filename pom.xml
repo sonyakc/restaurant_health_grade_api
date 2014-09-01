@@ -80,6 +80,12 @@
 
 	<properties>
 		<dropwizard.version>0.7.0</dropwizard.version>
+		<mongo.version>2.12.1</mongo.version>
+		<dropwizard.guice>0.7.0.2</dropwizard.guice>
+		<mockito.version>1.9.5</mockito.version>
+		<junit.version>4.8.1</junit.version>
+		<truth.version>0.23</truth.version>
+		<swagger.version>0.5.1</swagger.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -90,34 +96,34 @@
 		<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>
-			<version>2.12.1</version>
+			<version>${mongo.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.hubspot.dropwizard</groupId>
 			<artifactId>dropwizard-guice</artifactId>
-			<version>0.7.0.2</version>
+			<version>${dropwizard.guice}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
-			<version>1.9.5</version>
+			<version>${mockito.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.1</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.truth</groupId>
 			<artifactId>truth</artifactId>
-			<version>0.23</version>
+			<version>${truth.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.federecio</groupId>
 			<artifactId>dropwizard-swagger</artifactId>
-			<version>0.5.1</version>
+			<version>${swagger.version}</version>
 		</dependency>
 	</dependencies>
 

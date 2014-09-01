@@ -18,38 +18,52 @@ import com.google.common.base.Optional;
 import com.restaurant.api.Restaurant;
 import com.restaurant.dao.RestaurantDao;
 import com.sun.jersey.api.NotFoundException;
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 
-@Path("restaurants/grades")
+@Path("/restaurants/grades")
+@Api("/restaurants/grades")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class RestaurantResource {
-	private static final Logger LOGGER = LoggerFactory.getLogger(RestaurantResource.class);
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(RestaurantResource.class);
 	private final RestaurantDao restaurantDao;
 
 	public RestaurantResource(RestaurantDao restaurantDao) {
 		super();
 		this.restaurantDao = restaurantDao;
 	}
-	
+
 	@GET
+	@ApiOperation("Find restaurants by name, zip and/or grade")
 	@Timed
-	public List<Restaurant> query(@QueryParam("name") Optional<String> name, 
-			@QueryParam("zip") Optional<Integer> zipcode, 
-			@QueryParam("rating") Optional<String> rating) {
+	public List<Restaurant> searchRestaurantHealthData(
+			@QueryParam("name") Optional<String> name,
+			@QueryParam("zip") Optional<Integer> zipcode,
+			@QueryParam("grade") Optional<String> grade) {
 		LOGGER.info("Querying for restaurant inspection grade data");
-		List<Restaurant> restaurants = restaurantDao.queryForGrades(name.orNull(), zipcode.orNull(), rating.orNull());
-		if(restaurants == null || restaurants.isEmpty()) 
-		{
-			throw new NotFoundException("No restaurants found for provided search, please submit "
-					+ "updated search criteria");
+		List<Restaurant> restaurants = restaurantDao.queryForGrades(
+				name.orNull(), zipcode.orNull(), grade.orNull());
+		if (restaurants == null || restaurants.isEmpty()) {
+			throw new NotFoundException(
+					"No restaurants found for provided search, please submit "
+							+ "updated search criteria");
 		}
 		return restaurants;
 	}
-	
+
 	@GET
-	@Path("/{camis}")
-	public Restaurant getRestaurant(@PathParam("camis") Optional<Long> camis) {
-		LOGGER.info("Querying for specific restaurant with camis={}", camis.orNull());
+	@Path("/{id}: [0-9]")
+	@ApiOperation("Find single restaurant by ID")
+	@Timed
+	public Restaurant getRestaurant(@PathParam("id") Long camis)
+			throws InvalidRequestException {
+		if (camis == null) {
+			throw new InvalidRequestException(
+					"camis unique identifier missing from request");
+		}
+		LOGGER.info("Querying for specific restaurant with camis={}", camis);
 		return null;
 	}
 }

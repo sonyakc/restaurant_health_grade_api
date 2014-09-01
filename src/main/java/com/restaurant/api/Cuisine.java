@@ -30,6 +30,7 @@ public final class Cuisine {
 		this.id = objectid;
 	}
 
+	@JsonProperty
 	public String getId() {
 		return id;
 	}

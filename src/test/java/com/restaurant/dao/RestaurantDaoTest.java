@@ -27,15 +27,14 @@ public class RestaurantDaoTest {
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
-		dao = new RestaurantDao(db, "health");
+		dao = new RestaurantDao(db);
 		dao.collection = collection;
 		Mockito.when(db.getCollection(Mockito.eq("ratings"))).thenReturn(collection);
 	}
 	
 	@Test
 	public void restaurantQueryForGrades() {
-		DBObject value = new BasicDBObject();
-		value.put("dba", "abc");
+		DBObject value = new BasicDBObject("dba", "abc");
 		value.put("currentgrade", "A");
 		value.put("camis", 41557702);
 		value.put("zipcode", 10003);
@@ -48,11 +47,8 @@ public class RestaurantDaoTest {
 		Mockito.doNothing().when(dbCursor).close();
 		Mockito.when(dbCursor.maxTime(1, TimeUnit.MINUTES)).thenReturn(dbCursor);
 		Mockito.when(collection.find(Mockito.any(DBObject.class))).thenReturn(dbCursor);
-		String name = "restaurant";
-		Integer zipcode = 10003;
-		String grade = "A";
 		
-		List<Restaurant> restaurants = dao.queryForGrades(name, zipcode, grade);
+		List<Restaurant> restaurants = dao.queryForGrades("restaurant", 10003, "A");
 		
 		Mockito.verify(dbCursor).close();
 		Mockito.verify(dbCursor).maxTime(1, TimeUnit.MINUTES);

@@ -1,6 +1,6 @@
 package com.restaurant.api;
 
-import org.joda.time.LocalDateTime;
+import org.joda.time.DateTime;
 
 public class RestaurantBuilder {
 	private String id;
@@ -12,7 +12,7 @@ public class RestaurantBuilder {
 	private Integer boroCode;
 	private Borough boroName;
 	private Integer cuisineCode;
-	private LocalDateTime gradedate;
+	private DateTime gradedate;
 	private String phoneNumber;
 
 	public RestaurantBuilder() {}
@@ -62,8 +62,8 @@ public class RestaurantBuilder {
 		return this;
 	}
 
-	public RestaurantBuilder withGradeDate(LocalDateTime localDateTime) {
-		this.gradedate = localDateTime;
+	public RestaurantBuilder withGradeDate(DateTime gradeDate) {
+		this.gradedate = gradeDate;
 		return this;
 	}
 
@@ -103,7 +103,7 @@ public class RestaurantBuilder {
 		return cuisineCode;
 	}
 
-	public LocalDateTime getGradedate() {
+	public DateTime getGradedate() {
 		return gradedate;
 	}
 

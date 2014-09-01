@@ -20,7 +20,7 @@ public class RestaurantDao {
 	private static final Logger LOGGER = LoggerFactory.getLogger(RestaurantDao.class);
 	DBCollection collection;
 
-	public RestaurantDao(DB db, String dbName) {
+	public RestaurantDao(DB db) {
 		super();
 		this.collection = db.getCollection("ratings");
 	}
@@ -45,7 +45,7 @@ public class RestaurantDao {
 		if (grade != null) {
 			selection.put("currentgrade", grade);
 		}
-		LOGGER.info("Mongo query submitted: {}", selection.toString());
+		LOGGER.info("restaurant query submitted: {}", selection.toString());
 		DBCursor cursor = collection.find(selection).maxTime(1,
 				TimeUnit.MINUTES);
 		if (cursor != null) {
@@ -57,7 +57,6 @@ public class RestaurantDao {
 				DBObject next = cursor.next();
 				RestaurantBuilder builder = new RestaurantBuilder();
 				Integer borocode = Integer.valueOf(next.get("boro").toString());
-//				builder.withBoroCode(borocode);
 				builder.withBorough(Borough.findBorough(borocode));
 				builder.withCamis(Long.valueOf(next.get("camis").toString()));
 				builder.withCuisineCode(Integer.valueOf(next.get("cuisinecode")
@@ -70,6 +69,7 @@ public class RestaurantDao {
 				builder.withZipCode(Integer.valueOf(next.get("zipcode")
 						.toString()));
 				builder.withPhoneNumber(String.valueOf(next.get("phone")));
+				builder.withId(String.valueOf(next.get("_id")));
 				Restaurant restaurant = builder.build();
 				restaurants.add(restaurant);
 			}
