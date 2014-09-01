@@ -8,10 +8,12 @@ Original data set retrieved from: https://nycopendata.socrata.com/Health/Restaur
 
 Application stack consists of:
 
-- Dropwizard (Jersey, Jackson, Guava Jetty, Maven) for web service development
+- Dropwizard (Jersey, Jackson, Guava Jetty, Maven, Joda Datetime) for web service development
 - MongoDB for the persistence layer
 - Ruby for scripting, importing csv data into Mongo
 - Swagger for API documentation
+- Google Truth assertion / proposition framework for testing
+- Mockito framework for mocking/verification
 
 To run the application, checkout the code and run the followng commands 
 
