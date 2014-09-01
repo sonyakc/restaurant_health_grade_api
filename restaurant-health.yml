@@ -1,0 +1,7 @@
+template: Hello, %s!
+defaultName: Stranger
+
+dbName: "health"
+mongoClient:
+  host: localhost
+  port: 27017
