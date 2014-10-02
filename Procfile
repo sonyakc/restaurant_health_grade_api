@@ -1,0 +1,1 @@
+web: java -jar target/restaurant-health-0.0.1-SNAPSHOT.jar server restaurant-health.yml
